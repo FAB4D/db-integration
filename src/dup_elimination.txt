@@ -1,0 +1,26 @@
+
+-- duplicate detection:
+
+	select id, name, street, birthday 
+	from customer_test orig
+	where exists(
+		select * 
+		from customer_test dup
+		where dup.name = orig.name and 
+			dup.street=orig.street and
+			dup.birthday = orig.birthday and 
+			dup.id > orig.id
+	) order by id;
+
+-- duplicate elimination: delete from table if there exists a tuple with same information but other id
+	delete from customer_test 
+	where exists (
+		select dup.id 
+		from customer_test dup 
+		where dup.name = orig.name and
+		dup.street = orig.street and
+		dup.birthday = orig.birthday and
+		dup.id <> orig.id			
+	);
+
+

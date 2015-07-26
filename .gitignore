@@ -1,0 +1,5 @@
+*~
+*.swp
+db/db_config.ini
+*.pyc
+
